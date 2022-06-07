@@ -2,18 +2,21 @@ package com.laboravi.bean;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class HistoryWork {
 	
 	@Id
 	@GeneratedValue
 	private int id;
-	private Date first_point;
-	private Date second_point;
-	private Date third_point;
-	private Date fourty_point;
+	private Date point_at;
+	@ManyToOne
+	private User user;
+	private String description;
 
 	public int getId() {
 		return id;
@@ -21,31 +24,23 @@ public class HistoryWork {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getFirst_point() {
-		return first_point;
+	public Date getPoint_at() {
+		return point_at;
 	}
-	public void setFirst_point(Date first_point) {
-		this.first_point = first_point;
+	public void setPoint_at(Date point_at) {
+		this.point_at = point_at;
 	}
-	public Date getSecond_point() {
-		return second_point;
+	public User getUser() {
+		return user;
 	}
-	public void setSecond_point(Date second_point) {
-		this.second_point = second_point;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	public Date getThird_point() {
-		return third_point;
+	public String getDescription() {
+		return description;
 	}
-	public void setThird_point(Date third_point) {
-		this.third_point = third_point;
-	}
-	public Date getFourty_point() {
-		return fourty_point;
-	}
-	public void setFourty_point(Date fourty_point) {
-		this.fourty_point = fourty_point;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
-	
-
 }
