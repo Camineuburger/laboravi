@@ -26,6 +26,14 @@ public class Role {
 		this.id = id;
 	}
 
+	public List<Permission> getPermission() {
+		return permission;
+	}
+
+	public void setPermission(List<Permission> permission) {
+		this.permission = permission;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -41,4 +49,5 @@ public class Role {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 }

@@ -8,76 +8,75 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.laboravi.bean.User;
-import com.laboravi.repository.UserRepository;
+import com.laboravi.bean.Department;
+import com.laboravi.repository.DepartmentRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/department")
+public class DepartmentController {
 
 	@Autowired
-	private UserRepository userRepository;
+	DepartmentRepository departmentRepository;
 
 	@PostMapping(path = "/create")
 	public @ResponseBody String create(@RequestParam Map<String, Object> data) {
 
-		User user = new User();
-		user.setName(data.get("name").toString());
-		user.setDepartment_id(1);
-		user.setRole_id(1);
+		Department department = new Department();
+
+		department.setDescription(data.get("description").toString());
+		department.setName(data.get("name").toString());
+		department.setTime_work(Integer.parseInt(data.get("time_work").toString()));
 
 		try {
-			userRepository.save(user);
+
 		} catch (Exception e) {
 			return e.getMessage();
 		}
 
 		return "success";
+
 	}
 
-	@PutMapping(path = "/update")
-	public String update(@RequestParam Map<String, Object> data) {
+	@PostMapping(path = "/update")
+	public @ResponseBody String update(@RequestParam Map<String, Object> data) {
 
-		User user = userRepository.findById(Integer.parseInt(data.get("id").toString())).get();
+		Department department = departmentRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 
-		user.setName(data.get("name").toString());
-		user.setDepartment_id(1);
-		user.setRole_id(1);
+		department.setDescription(data.get("description").toString());
+		department.setName(data.get("name").toString());
+		department.setTime_work(Integer.parseInt(data.get("time_work").toString()));
 
 		try {
-			userRepository.save(user);
+
 		} catch (Exception e) {
-
 			return e.getMessage();
-
 		}
 
 		return "success";
+
 	}
 
 	@DeleteMapping(path = "/delete")
 	public String delete(@RequestParam("id") int id) {
 
-		userRepository.deleteById(id);
+		departmentRepository.deleteById(id);
 		return "success";
 	}
 
 	@GetMapping(path = "/all")
-	public Iterable<User> listAll() {
-		return userRepository.findAll();
+	public Iterable<Department> listAll() {
+		return departmentRepository.findAll();
 
 	}
 
 	@GetMapping
-	public Optional<User> get(@RequestParam("id") int id) {
-		return userRepository.findById(id);
+	public Optional<Department> get(@RequestParam("id") int id) {
+		return departmentRepository.findById(id);
 	}
-
 }

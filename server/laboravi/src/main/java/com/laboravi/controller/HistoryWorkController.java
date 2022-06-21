@@ -40,9 +40,15 @@ public class HistoryWorkController {
 		historyWork.setUser(user);
 		historyWork.setPoint_at(new Date());
 
-		return "Success";
+		try {
+			historyWorkRepository.save(historyWork);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+
+		return "success";
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@PostMapping(path = "/update/worklog")
 	public @ResponseBody String updateWorkLog(@RequestParam Map<String, Object> data) {
@@ -53,9 +59,15 @@ public class HistoryWorkController {
 		historyWork.setIs_pending(true);
 		historyWork.setPeding_point_at(new Date(data.get("point_at").toString()));
 
-		return "Success";
+		try {
+			historyWorkRepository.save(historyWork);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+
+		return "success";
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@PostMapping(path = "/update/pending")
 	public @ResponseBody String updatePending(@RequestParam Map<String, Object> data) {
@@ -65,7 +77,13 @@ public class HistoryWorkController {
 		historyWork.setDescription(data.get("description").toString());
 		historyWork.setPoint_at(new Date(data.get("date").toString()));
 
-		return "Success";
+		try {
+			historyWorkRepository.save(historyWork);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+
+		return "success";
 	}
 
 	@DeleteMapping(path = "/delete")
@@ -82,9 +100,7 @@ public class HistoryWorkController {
 
 	@GetMapping
 	public Optional<HistoryWork> get(@RequestParam("id") int id) {
-
 		return historyWorkRepository.findById(id);
-
 	}
 
 }
