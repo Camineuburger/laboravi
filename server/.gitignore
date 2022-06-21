@@ -1,5 +1,8 @@
+#Ignora arquivos que estão na pasta metadata.
 /.metadata/
+
+#Ignora os arquivos que estão na pasta target (arquivos compilados).
 laboravi/target/*
+
+#Ignora o metadata do projeto java.
 laboravi/.metadata/
-
-
