@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,7 @@ import com.laboravi.repository.HistoryWorkRepository;
 import com.laboravi.repository.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/historywork")
 public class HistoryWorkController {
 
@@ -31,8 +32,10 @@ public class HistoryWorkController {
 	UserRepository userRepository;
 
 	@PostMapping(path = "/create")
-	public @ResponseBody String create(@RequestParam Map<String, Object> data) {
+	public @ResponseBody String create(@RequestBody Map<String, Object> data) {
 
+		System.out.println(data);
+		
 		User user = userRepository.findById(Integer.parseInt(data.get("user_id").toString())).get();
 		HistoryWork historyWork = new HistoryWork();
 
@@ -51,7 +54,7 @@ public class HistoryWorkController {
 
 	@SuppressWarnings("deprecation")
 	@PostMapping(path = "/update/worklog")
-	public @ResponseBody String updateWorkLog(@RequestParam Map<String, Object> data) {
+	public @ResponseBody String updateWorkLog(@RequestBody Map<String, Object> data) {
 
 		HistoryWork historyWork = historyWorkRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 
@@ -70,7 +73,7 @@ public class HistoryWorkController {
 
 	@SuppressWarnings("deprecation")
 	@PostMapping(path = "/update/pending")
-	public @ResponseBody String updatePending(@RequestParam Map<String, Object> data) {
+	public @ResponseBody String updatePending(@RequestBody Map<String, Object> data) {
 
 		HistoryWork historyWork = historyWorkRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 

@@ -18,7 +18,7 @@ import com.laboravi.bean.User;
 import com.laboravi.repository.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/users")
 public class UserController {
 

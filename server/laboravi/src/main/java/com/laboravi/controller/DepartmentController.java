@@ -17,7 +17,7 @@ import com.laboravi.bean.Department;
 import com.laboravi.repository.DepartmentRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/department")
 public class DepartmentController {
 

@@ -20,7 +20,7 @@ import com.laboravi.repository.PermissionRepository;
 import com.laboravi.repository.RoleRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/role")
 public class RoleController {
 

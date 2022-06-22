@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import axios from 'axios'
 
 const PointRecord = () => {
 
@@ -10,9 +11,40 @@ const PointRecord = () => {
             minute: 'numeric',
             second: 'numeric'
         })
+
+        return now
     }
 
-    getNow();
+    //TODO: Criar as services e inserir as request no mesmo.
+    // TESTE!!
+    // TESTE!!
+    // TESTE!!
+    const logWorkTime = () => {
+
+        const data = {
+            user_id: "1",
+            description: "Teste de ponto.",
+        }
+
+        axios({
+            method: "POST",
+            url: "http://localhost:8081/historywork/create",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+            },
+            data: data
+        }).then((response) => {
+            console.log(response);
+            // alert("Sucesso o ponto foi batido.")
+        }).catch((error) => {
+            console.log(error);
+        })
+
+    }
+    // TESTE!!
+    // TESTE!!
+    // TESTE!!
+
 
     setInterval(() => {
         getNow();
@@ -25,10 +57,11 @@ const PointRecord = () => {
             <span>
                 Seja bem vindo(a) Camille Menezes Neuburger!!!
             </span>
+            <button className='btn btn-sm btn-danger' onClick={logWorkTime} > REGISTRAR PONTO</button>
         </div>
 
         <div> 
-            { now }
+            { getNow() }
         </div>
     </>
   );
