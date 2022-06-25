@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Navbar, Offcanvas, Nav, NavDropdown, Container } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 
 const Header = ( ) => {
@@ -33,9 +34,11 @@ const Header = ( ) => {
                                         Início
                                     </Nav.Link>
 
-                                    <Nav.Link href={"#action2"}>
-                                        Funcionários
-                                    </Nav.Link>
+                                    <Link to="/department">Departamentos</Link>
+                                    <Link to="/department">Funcionários</Link>
+                                    <Link to="/department">Pontos</Link>
+                                    <Link to="/department">Cargos</Link>
+
 
                                     <NavDropdown
                                         title={"Perfil"}
