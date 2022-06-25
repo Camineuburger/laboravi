@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar, Offcanvas, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
@@ -36,7 +36,7 @@ const Header = ( ) => {
 
                                     <Link to="/department">Departamentos</Link>
                                     <Link to="/department">Funcionários</Link>
-                                    <Link to="/department">Pontos</Link>
+                                    <Link to="/worktime">Pontos</Link>
                                     <Link to="/department">Cargos</Link>
 
 
@@ -64,26 +64,6 @@ const Header = ( ) => {
                     </Container>
                 </Navbar>
             ))}
-
-            <Nav fill variant="tabs" defaultActiveKey="/home">
-                <Nav.Item>
-                    <Nav.Link href="../screens/PointRecord">
-                        Resgistrar ponto
-                    </Nav.Link>
-                </Nav.Item>
-
-                <Nav.Item>
-                    <Nav.Link eventKey="link-1">
-                        Funcionários
-                    </Nav.Link>
-                </Nav.Item>
-
-                <Nav.Item>
-                    <Nav.Link eventKey="link-2">
-                        Histórico de pontos
-                    </Nav.Link>
-                </Nav.Item>
-            </Nav>
         </header>
     </>
   );

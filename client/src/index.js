@@ -10,7 +10,7 @@ import {
 
 import App from './App';
 import Department from './screens/Department';
-import MainWorkTime from './screens/PointRecord';
+import MainWorkTime from './screens/MainWorkTime';
 // import Department from './screens/Department';
 
 import reportWebVitals from './reportWebVitals';

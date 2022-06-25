@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import axios from 'axios'
 
-const PointRecord = () => {
+const MainWorkTime = () => {
 
-    const getNow = () => {
-        let event = new Date();
-        let now = event.toLocaleString('pt', {
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric'
-        })
+    // const getNow = () => {
+    //     let event = new Date();
+    //     let now = event.toLocaleString('pt', {
+    //         hour: 'numeric',
+    //         minute: 'numeric',
+    //         second: 'numeric'
+    //     })
 
-        return now
-    }
+    //     return now
+    // }
+
+    // useEffect(() => {
+    //     getNow()
+    // }, [])
 
     //TODO: Criar as services e inserir as request no mesmo.
     // TESTE!!
@@ -45,26 +49,28 @@ const PointRecord = () => {
     // TESTE!!
     // TESTE!!
 
-
-    setInterval(() => {
-        getNow();
-    }, 1000);
-
   return (
     <>
-        <Header/>
+        {/* <Header/>
         <div>
             <span>
                 Seja bem vindo(a) Camille Menezes Neuburger!!!
             </span>
-            <button className='btn btn-sm btn-danger' onClick={logWorkTime} > REGISTRAR PONTO</button>
+            <button className='btn btn-sm btn-danger' onClick={logWorkTime}> REGISTRAR PONTO</button>
         </div>
 
         <div> 
             { getNow() }
-        </div>
+        </div> */}
+        <Header />
+
+        <main>
+            <div>
+                teste
+            </div>
+        </main>
     </>
   );
 }
 
-export default PointRecord;
+export default MainWorkTime;

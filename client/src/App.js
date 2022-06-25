@@ -1,7 +1,8 @@
 // import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header';
 // import Header from './components/Header';
-import PointRecord from './screens/PointRecord';
+import MainWorkTime from './screens/MainWorkTime';
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
         height: '100vh'
       }}
     >
-      <PointRecord />
+      <MainWorkTime />
     </div>
   );
 }
