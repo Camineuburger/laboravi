@@ -8,6 +8,7 @@ const MainWorkTime = () => {
 
     const [ content, setContent ] = useState('main_work_time');
     const [ listWorkTimes, setListWorkTimes ] = useState([]);
+    const [ listWorkTimesToday, setListWorkTimesToday ] = useState([]);
     const [ hour, setHour ] = useState('');
     const [ showModal, setShowModal ] = useState(false);
     const [ messageToast, setMessageToast ] = useState("");
@@ -22,6 +23,7 @@ const MainWorkTime = () => {
 
     useEffect(() => {
         getMainWorkTime();
+        getListWorkTimeToday()
     }, [])
 
     const getNow = () => {
@@ -88,6 +90,7 @@ const MainWorkTime = () => {
         }).finally(() => {
     
             getMainWorkTime();
+            getListWorkTimeToday();
     
         })
     }
@@ -115,6 +118,24 @@ const MainWorkTime = () => {
             if (response.data) {
                 let list = formatHour(response.data);
                 setListWorkTimes(list);
+            }
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const getListWorkTimeToday = () => {
+        axios({
+            method: "GET",
+            url: "http://localhost:8081/historywork/worklog/today?id=1",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+            },
+        }).then((response) => {
+            console.log(response.data);
+            if (response.data) {
+                let list = formatHour(response.data);
+                setListWorkTimesToday(list);
             }
         }).catch((error) => {
             console.log(error);
@@ -286,6 +307,26 @@ const MainWorkTime = () => {
                                     Registrar ponto
                                 </button>
                             </div>
+
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>Horário</th>
+                                        <th>Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    { listWorkTimesToday?.map((item, index) => {
+                                        return(
+                                            <tr key={index}>
+                                                <td>{item.hour}</td>
+                                                <td>{item.date}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </Table>
+
 
                             <div
                                 style={{

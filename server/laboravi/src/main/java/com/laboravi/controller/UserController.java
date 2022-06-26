@@ -81,7 +81,6 @@ public class UserController {
 		String login = data.get("name").toString();
 		String password = data.get("password").toString();
 	
-
 		User user = userRepository.authenticate(login, password);
 
 		return user;
