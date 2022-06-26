@@ -2,7 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 // import Header from './components/Header';
-import MainWorkTime from './screens/MainWorkTime';
+import Login from './screens/Login';
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
         height: '100vh'
       }}
     >
-      <MainWorkTime />
+      <Login />
     </div>
   );
 }

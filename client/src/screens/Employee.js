@@ -16,6 +16,7 @@ const Employee = () => {
   const [employee, setEmployee] = useState({
     id: null,
     name: "",
+    password: "",
     department: {},
     role: {},
     department_id: null,
@@ -45,6 +46,13 @@ const Employee = () => {
   const setName = (e) => {
 
     employee.name = e.target.value
+    setEmployee(employee)
+
+  }
+
+  const setPassword = (e) => {
+
+    employee.password = e.target.value
     setEmployee(employee)
 
   }
@@ -310,6 +318,12 @@ const Employee = () => {
             <Form.Control size="sm" type="text" required defaultValue={employee.name} onChange={(e) => setName(e) }/>
             <Form.Control.Feedback type="invalid">
               Insira um nome para este funcionário.
+            </Form.Control.Feedback>
+
+            <Form.Label className='mt-3 mb-0' >Senha*</Form.Label>
+            <Form.Control size="sm" type="password" required defaultValue={employee.password} onChange={(e) => setPassword(e) }/>
+            <Form.Control.Feedback type="invalid">
+              Insira uma senha para este funcionário.
             </Form.Control.Feedback>
 
             <Form.Label className='mt-3 mb-0' >Departamento*</Form.Label>

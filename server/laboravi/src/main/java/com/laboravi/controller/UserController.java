@@ -1,5 +1,8 @@
 package com.laboravi.controller;
 
+import java.nio.charset.StandardCharsets;
+
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Optional;
 
@@ -39,6 +42,7 @@ public class UserController {
 
 		User user = new User();
 		user.setName(data.get("name").toString());
+		user.setPassword(data.get("password").toString());
 		user.setDepartment(departmentRepository.findById(Integer.parseInt(data.get("department_id").toString())).get());
 		user.setRole(roleRepository.findById(Integer.parseInt(data.get("role_id").toString())).get());
 
@@ -58,6 +62,7 @@ public class UserController {
 		User user = userRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 
 		user.setName(data.get("name").toString());
+		user.setPassword(data.get("password").toString());
 		user.setDepartment(departmentRepository.findById(Integer.parseInt(data.get("department_id").toString())).get());
 		user.setRole(roleRepository.findById(Integer.parseInt(data.get("role_id").toString())).get());
 
@@ -70,6 +75,19 @@ public class UserController {
 		}
 
 		return "success";
+	}
+	
+	@PostMapping(path = "/login")
+	public @ResponseBody User login(@RequestBody Map<String, Object> data) {
+		
+		String login = data.get("name").toString();
+		String password = data.get("password").toString();
+	
+
+		User user = userRepository.authenticate(login, password);
+
+		return user;
+
 	}
 
 	@DeleteMapping(path = "/delete")
