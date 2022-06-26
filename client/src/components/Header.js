@@ -35,7 +35,7 @@ const Header = ( ) => {
                                     </Nav.Link>
 
                                     <Link to="/department">Departamentos</Link>
-                                    <Link to="/department">Funcionários</Link>
+                                    <Link to="/employee">Funcionários</Link>
                                     <Link to="/worktime">Pontos</Link>
                                     <Link to="/role">Cargos</Link>
 

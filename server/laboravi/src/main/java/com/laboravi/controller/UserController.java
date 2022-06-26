@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laboravi.bean.User;
+import com.laboravi.repository.DepartmentRepository;
+import com.laboravi.repository.RoleRepository;
 import com.laboravi.repository.UserRepository;
 
 @RestController
@@ -24,14 +27,20 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	RoleRepository roleRepository;
 
+	@Autowired
+	DepartmentRepository departmentRepository;
+	
 	@PostMapping(path = "/create")
-	public @ResponseBody String create(@RequestParam Map<String, Object> data) {
+	public @ResponseBody String create(@RequestBody Map<String, Object> data) {
 
 		User user = new User();
 		user.setName(data.get("name").toString());
-		user.setDepartment_id(1);
-		user.setRole_id(1);
+		user.setDepartment(departmentRepository.findById(Integer.parseInt(data.get("department_id").toString())).get());
+		user.setRole(roleRepository.findById(Integer.parseInt(data.get("role_id").toString())).get());
 
 		try {
 			userRepository.save(user);
@@ -43,13 +52,14 @@ public class UserController {
 	}
 
 	@PutMapping(path = "/update")
-	public String update(@RequestParam Map<String, Object> data) {
+	public String update(@RequestBody Map<String, Object> data) {
 
+		
 		User user = userRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 
 		user.setName(data.get("name").toString());
-		user.setDepartment_id(1);
-		user.setRole_id(1);
+		user.setDepartment(departmentRepository.findById(Integer.parseInt(data.get("department_id").toString())).get());
+		user.setRole(roleRepository.findById(Integer.parseInt(data.get("role_id").toString())).get());
 
 		try {
 			userRepository.save(user);

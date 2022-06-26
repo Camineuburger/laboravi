@@ -12,7 +12,7 @@ import App from './App';
 import Department from './screens/Department';
 import MainWorkTime from './screens/MainWorkTime';
 import Role from './screens/Role';
-
+import Employee from './screens/Employee'
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,6 +22,7 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="department" element={<Department />} />
       <Route path="role" element={<Role />} />
+      <Route path="employee" element={<Employee />} />
       <Route path="worktime" element={<MainWorkTime />} />
     </Routes>  
   </BrowserRouter>
