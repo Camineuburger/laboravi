@@ -9,7 +9,7 @@ const Header = ( ) => {
     <>
         <header>
             {[false].map((expand) => (
-                <Navbar key={expand} bg={"light"} expand={expand}>
+                <Navbar key={expand} bg={"dark"} expand={expand} className={'navbar-dark'}>
                     <Container fluid>
                         <Navbar.Brand href={"#"}>
                             Minha Empresa
@@ -21,43 +21,25 @@ const Header = ( ) => {
                             id={`offcanvasNavbar-expand-${expand}`}
                             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
                             placement={"end"}
+                            style={{width: '30%'}}
                         >
                             <Offcanvas.Header closeButton>
                                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                                    Menus
+                                    Menu
                                 </Offcanvas.Title>
                             </Offcanvas.Header>
 
-                            <Offcanvas.Body>
-                                <Nav className={"justify-content-end flex-grow-1 pe-3"}>
-                                    <Nav.Link href={"#action1"}>
-                                        Início
-                                    </Nav.Link>
-
-                                    <Link to="/department">Departamentos</Link>
-                                    <Link to="/employee">Funcionários</Link>
-                                    <Link to="/worktime">Pontos</Link>
-                                    <Link to="/role">Cargos</Link>
-
-
-                                    <NavDropdown
-                                        title={"Perfil"}
-                                        id={`offcanvasNavbarDropdown-expand-${expand}`}
-                                    >
-                                        <NavDropdown.Item href={"#action3"}>
-                                            Ponto
-                                        </NavDropdown.Item>
-
-                                        <NavDropdown.Item href={"#action4"}>
-                                            Gestão
-                                        </NavDropdown.Item>
-
-                                        <NavDropdown.Divider/>
-
-                                        <NavDropdown.Item href={"#action5"}>
-                                            Sair
-                                        </NavDropdown.Item>
-                                    </NavDropdown>
+                            <Offcanvas.Body
+                                style={{
+                                    padding: 0,
+                                }}
+                            >
+                                <Nav className={"justify-content-end flex-grow-1"}>
+                                    <Link to="/department" className={'menu-option'}>Departamentos</Link>
+                                    <Link to="/employee" className={'menu-option'}>Funcionários</Link>
+                                    <Link to="/worktime" className={'menu-option'}>Pontos</Link>
+                                    <Link to="/role" className={'menu-option'}>Cargos</Link>
+                                    <Link to="" className={'menu-option'}>Sair</Link>
                                 </Nav>
                             </Offcanvas.Body>
                         </Navbar.Offcanvas>

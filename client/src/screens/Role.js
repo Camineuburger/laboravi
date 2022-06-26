@@ -183,18 +183,18 @@ const Role = () => {
 
       <div className='p-4'>
 
-        <Button variant="primary" onClick={() => {setShowModal(true)}}>
+        <Button variant="dark" onClick={() => {setShowModal(true)}}>
           Novo cargo
         </Button>
 
-        <Button className='mx-3' variant="primary" onClick={() => {getListRole()}}>
+        <Button className='mx-3' variant="dark" onClick={() => {getListRole()}}>
           Atualizar
         </Button>
     
         {/* LISTA */}
         <div className='pt-3 pb-3'>
 
-          <Table striped bordered hover responsive>
+          <Table striped bordered hover responsive variant="light">
             <thead>
               <tr>
                 <th>Nome</th>
@@ -261,7 +261,7 @@ const Role = () => {
             <Button variant="secondary" type="reset" onClick={handleCloseModal}>
               Cancelar
             </Button>
-            <Button variant="primary" type='submit'>
+            <Button variant="dark" type='submit'>
               Salvar
             </Button>
           </Modal.Footer>

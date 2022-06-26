@@ -9,10 +9,10 @@ const MainWorkTime = () => {
     const [ content, setContent ] = useState('main_work_time');
     const [ listWorkTimes, setListWorkTimes ] = useState([]);
     const [ hour, setHour ] = useState('');
-    const [showModal, setShowModal ] = useState(false);
-    const [messageToast, setMessageToast] = useState("");
-    const [validated, setValidated] = useState(false);
-    const [showToast, setShowToast] = useState(false);
+    const [ showModal, setShowModal ] = useState(false);
+    const [ messageToast, setMessageToast ] = useState("");
+    const [ validated, setValidated ] = useState(false);
+    const [ showToast, setShowToast ] = useState(false);
     const [ dataJustifyWorkTime, setDataJustifyWorkTime ] = useState({
         description: '',
         point_at: '',
@@ -197,13 +197,14 @@ const MainWorkTime = () => {
                         width: '80%',
                         display: 'flex',
                         flexDirection: 'column',
+                        background: 'white',
                         left: '8%',
                         right: '5%',
                         top: '15%',
-                        background: 'cornflowerblue',
                         height: '80%',
-                        borderRadius: '30px',
+                        borderRadius: '10px',
                         position: 'fixed',
+                        boxShadow: '10px 10px 35px #000000',
                     }}
                 >
                     <div
@@ -214,29 +215,15 @@ const MainWorkTime = () => {
                         }}          
                     >
                         <button
+                            className={'button'}
                             onClick={() => setContent("main_work_time")}
-                            style={{
-                                borderRadius: '10px',
-                                width: '20%',
-                                height: '40px',
-                                background: 'beige',
-                                border: 'none',
-                                boxShadow: '#0000006e 3px 3px 3px',
-                            }}
                         >
                             Marcar ponto
                         </button>
 
                         <button
+                            className={'button'}
                             onClick={() => setContent("history_point")}
-                            style={{
-                                borderRadius: '10px',
-                                width: '20%',
-                                height: '40px',
-                                background: 'beige',
-                                border: 'none',
-                                boxShadow: '#0000006e 3px 3px 3px',
-                            }}
                         >
                             Histórico de ponto
                         </button>
@@ -250,7 +237,7 @@ const MainWorkTime = () => {
                                     height: '25%',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    color: 'white',
+                                    color: 'black',
                                     fontWeight: '900',
                                     flexDirection: 'column',
                                 }}      
@@ -292,18 +279,42 @@ const MainWorkTime = () => {
                                 }}
                             >
                                 <button
+                                    className={'button'}
                                     onClick={logWorkTime}
                                     style={{
-                                        borderRadius: '10px',
                                         width: '200px',
                                         height: '75px',
-                                        background: 'beige',
-                                        border: 'none',
-                                        boxShadow: '#0000006e 3px 3px 3px',
                                     }}
                                 >
                                     Registrar ponto
                                 </button>
+                            </div>
+
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    height: '18%',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'white',
+                                    fontWeight: '900',
+                                    flexDirection: 'column',
+                                    background: '#202425',
+                                    fontFamily: 'monospace',
+                                    borderBottom: '5px solid deepskyblue',
+                                    borderTop: '5px solid deeppink',
+                                }}
+                            >
+                                <span>
+                                    Seu horário de saída contando 1 hora de intervalo será: 
+                                    <u style={{
+                                        background: 'yellow',
+                                        color: 'black',
+                                        marginLeft: '5px'
+                                    }}>
+                                        17:45
+                                    </u>
+                                </span>
                             </div>
                         </>
                     }
@@ -339,7 +350,7 @@ const MainWorkTime = () => {
                                                     <td>{item.date}</td>
                                                     <td>{item.description}</td>
                                                     <td align='center'>
-                                                        <Button onClick={() => handleShowModal(item.id)}>Justificar ponto</Button>
+                                                        <Button variant={'dark'} onClick={() => handleShowModal(item.id)}>Justificar ponto</Button>
                                                     </td>
                                                 </tr>
                                             )
@@ -387,7 +398,7 @@ const MainWorkTime = () => {
                                 <Button variant="secondary" type="reset" onClick={() => setShowModal(false)}>
                                     Cancelar
                                 </Button>
-                                <Button variant="primary" type='submit'>
+                                <Button variant="dark" type='submit'>
                                     Salvar
                                 </Button>
                             </Modal.Footer>

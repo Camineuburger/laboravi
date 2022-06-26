@@ -38,3 +38,37 @@ input[type=number] {
   box-shadow: 10px 10px 8px #888888;
 
 }
+
+.menu-option {
+  height: 50px;
+  display: flex;
+  width: 100%;
+  padding-left: 36px;
+  align-items: center;
+  text-decoration: none;
+  color:  #222529
+}
+
+.menu-option:hover {
+  box-shadow: 10px 10px 8px #888888;
+  background-color:  #222529;
+  color: yellow;
+  font-weight: 900;
+}
+
+.button {
+  font-family: monospace;
+  border-radius: 10px;
+  width: 28%;
+  height: 40px;
+  border: 2px solid black;
+  box-shadow: #0000006e 3px 3px 3px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.button:hover {
+  background: black;
+  color: yellow;
+  border: 2px solid yellow;
+}
