@@ -84,7 +84,9 @@ public class UserController {
 		String password = data.get("password").toString();
 	
 		User user = userRepository.authenticate(login, password);
-
+		
+		
+		System.out.println(user);
 		return user;
 
 	}

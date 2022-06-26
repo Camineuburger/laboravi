@@ -42,7 +42,7 @@ const LoginPage = () => {
 
       if (!utils.isEmptyOrNullOrUndefined(response.data)) {
 
-        localStorage.setItem("user", JSON.stringify(user))
+        localStorage.setItem("user", JSON.stringify(response.data))
         navigate("/worktime")
 
       } else {

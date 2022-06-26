@@ -16,6 +16,7 @@ const MainWorkTime = () => {
     const [ messageToast, setMessageToast ] = useState("");
     const [ validated, setValidated ] = useState(false);
     const [ showToast, setShowToast ] = useState(false);
+    const [ time, setTime] = useState(0)
     const [ dataJustifyWorkTime, setDataJustifyWorkTime ] = useState({
         id: null,
         description: '',
@@ -30,8 +31,6 @@ const MainWorkTime = () => {
         console.log(localStorage);
     }, [])
 
-    // console.log(user);
-
     const getNow = () => {
         let event = new Date();
         let now = event.toLocaleString('pt', {
@@ -41,6 +40,11 @@ const MainWorkTime = () => {
         });
         
         return setHour(now);
+    }
+
+
+    const countFinishWorkTime = () => {
+        
     }
 
     setTimeout(() => {
@@ -210,7 +214,7 @@ const MainWorkTime = () => {
             }}
         >
             <Header user={user} />
-
+            {user.department}
             <main
                 style={{
                     height: '100%'
