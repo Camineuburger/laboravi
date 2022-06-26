@@ -12,6 +12,7 @@ public class User {
 	@GeneratedValue
 	private int id;
 	private String name;
+	private String login;
 	private String password;
 	@ManyToOne
 	private Role role;
@@ -56,6 +57,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 }

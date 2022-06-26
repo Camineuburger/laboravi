@@ -1,38 +1,16 @@
 import React, { useEffect } from 'react';
 import { Navbar, Offcanvas, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import utils from '../utils';
 
-const Header = ( ) => {
-
-    // const [user, setUser] = useEffect({})
-
-    // const getUser = (id) => {
-
-    //     axios({
-    //       method: "GET",
-    //       url: "http://localhost:8081/role?id=" + id,
-    //       headers: {
-    //         "Access-Control-Allow-Origin": "*",
-    //       },
-    //     }).then((response) => {
+const Header = ({user}) => {
+    const navigate = useNavigate()
     
-    //       if (response.data) {
-    
-    //         setRole(response.data)
-    //         setShowModal(true)
-    
-    //       }
-    
-    //     }).catch((error) => {
-    
-    //       setMessageToast("Houve uma falha ao buscar os dados do cargo.")
-    //       setShowToast(true)
-    //       console.log(error)
-    
-    //     })
-    
-    //   }
+    useEffect(() => {
+        if (utils.isEmptyOrNullOrUndefined(localStorage.getItem("user")))
+            navigate("/")
+    }, [])
 
   return (
     <>

@@ -40,6 +40,7 @@ public class UserController {
 
 		User user = new User();
 		user.setName(data.get("name").toString());
+		user.setLogin(data.get("login").toString());
 		user.setPassword(data.get("password").toString());
 		user.setDepartment(departmentRepository.findById(Integer.parseInt(data.get("department_id").toString())).get());
 		user.setRole(roleRepository.findById(Integer.parseInt(data.get("role_id").toString())).get());
@@ -60,6 +61,7 @@ public class UserController {
 		User user = userRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 
 		user.setName(data.get("name").toString());
+		user.setLogin(data.get("login").toString());
 		user.setPassword(data.get("password").toString());
 		user.setDepartment(departmentRepository.findById(Integer.parseInt(data.get("department_id").toString())).get());
 		user.setRole(roleRepository.findById(Integer.parseInt(data.get("role_id").toString())).get());
@@ -78,7 +80,7 @@ public class UserController {
 	@PostMapping(path = "/login")
 	public @ResponseBody User login(@RequestBody Map<String, Object> data) {
 		
-		String login = data.get("name").toString();
+		String login = data.get("login").toString();
 		String password = data.get("password").toString();
 	
 		User user = userRepository.authenticate(login, password);
