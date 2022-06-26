@@ -2,6 +2,7 @@ package com.laboravi.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -109,5 +110,13 @@ public class HistoryWorkController {
 	public Optional<HistoryWork> get(@RequestParam("id") int id) {
 		return historyWorkRepository.findById(id);
 	}
+	
+	@GetMapping(path = "/worklog/today")
+	public @ResponseBody List<HistoryWork> getHistoryToDay(@RequestParam("id") int id) {
+		
+		List<HistoryWork> list = historyWorkRepository.findHistoryToday(id);
+		
+		return list;
 
+	}
 }

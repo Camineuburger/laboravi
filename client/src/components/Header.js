@@ -1,9 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navbar, Offcanvas, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-
+import axios from 'axios';
 
 const Header = ( ) => {
+
+    // const [user, setUser] = useEffect({})
+
+    // const getUser = (id) => {
+
+    //     axios({
+    //       method: "GET",
+    //       url: "http://localhost:8081/role?id=" + id,
+    //       headers: {
+    //         "Access-Control-Allow-Origin": "*",
+    //       },
+    //     }).then((response) => {
+    
+    //       if (response.data) {
+    
+    //         setRole(response.data)
+    //         setShowModal(true)
+    
+    //       }
+    
+    //     }).catch((error) => {
+    
+    //       setMessageToast("Houve uma falha ao buscar os dados do cargo.")
+    //       setShowToast(true)
+    //       console.log(error)
+    
+    //     })
+    
+    //   }
 
   return (
     <>
