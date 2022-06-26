@@ -14,8 +14,9 @@ const MainWorkTime = () => {
     const [validated, setValidated] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [ dataJustifyWorkTime, setDataJustifyWorkTime ] = useState({
+        id: null,
         description: '',
-        point_at: '',
+        point_at: new Date().toISOString(),
         user_id: '1'
     });
 
@@ -38,28 +39,6 @@ const MainWorkTime = () => {
         getNow();
     }, 1000);
 
-    const logWorkTime = () => {
-        const data = {
-            user_id: "1",
-            description: "uhuh",
-        }
-
-        axios({
-            method: "POST",
-            url: "http://localhost:8081/historywork/create",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-            },
-            data: data
-        }).then((response) => {
-            if (response.data == "success")
-                getMainWorkTime();
-        }).catch((error) => {
-            console.log(error);
-        })
-
-    }
-
     const save = () => {
     
         let _method = "POST", _url = "http://localhost:8081/historywork/create"
@@ -70,7 +49,10 @@ const MainWorkTime = () => {
           _url = "http://localhost:8081/historywork/update/worklog"
     
         }
-    
+
+        dataJustifyWorkTime.user_id = "1"
+        setDataJustifyWorkTime(dataJustifyWorkTime)
+
         axios({
           method: _method,
           url: _url,
@@ -79,7 +61,7 @@ const MainWorkTime = () => {
           },
           data: dataJustifyWorkTime
         }).then((response) => {
-    
+
             if (response.data === "success") {
                 setMessageToast("Ponto salvo com sucesso.")
 
@@ -152,12 +134,27 @@ const MainWorkTime = () => {
         return list;
     }
 
-    const handleChange = (e) => {
-        console.log(e.target.value);
+    const setDescription = (e) => {
+        dataJustifyWorkTime.description = e.target.value
+        setDataJustifyWorkTime(dataJustifyWorkTime)
+    }
+
+    const setPointAt = (e) => {
+        dataJustifyWorkTime.point_at = e.target.value
+        setDataJustifyWorkTime(dataJustifyWorkTime)
     }
 
     const handleShowModal = (id) => {
         getWorkTime(id);
+    }
+
+    const handleHideModal = () => {
+
+        setShowModal(false)
+        dataJustifyWorkTime.description = ""
+        dataJustifyWorkTime.id = null
+        dataJustifyWorkTime.user_id = "1"
+        setDataJustifyWorkTime(dataJustifyWorkTime)
     }
 
     const getWorkTime = (id) => {
@@ -292,7 +289,7 @@ const MainWorkTime = () => {
                                 }}
                             >
                                 <button
-                                    onClick={logWorkTime}
+                                    onClick={save}
                                     style={{
                                         borderRadius: '10px',
                                         width: '200px',
@@ -326,7 +323,8 @@ const MainWorkTime = () => {
                                             <th></th>
                                             <th>Horário</th>
                                             <th>Data</th>
-                                            <th>Tipo de ponto</th>
+                                            <th>Descrição</th>
+                                            <th>Ajustado</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -338,8 +336,9 @@ const MainWorkTime = () => {
                                                     <td>{item.hour}</td>
                                                     <td>{item.date}</td>
                                                     <td>{item.description}</td>
+                                                    <td>{item.is_pending ? "Sim" : "Não"}</td>
                                                     <td align='center'>
-                                                        <Button onClick={() => handleShowModal(item.id)}>Justificar ponto</Button>
+                                                        <Button onClick={() => handleShowModal(item.id)}>Ajustar ponto</Button>
                                                     </td>
                                                 </tr>
                                             )
@@ -350,7 +349,7 @@ const MainWorkTime = () => {
                         </>
                     }
 
-                    <Modal show={showModal} onHide={() => setShowModal(false)}>
+                    <Modal show={showModal} onHide={() => handleHideModal()}>
                         <Modal.Header closeButton>
                             <Modal.Title>Justificar ponto</Modal.Title>
                         </Modal.Header>
@@ -363,7 +362,7 @@ const MainWorkTime = () => {
                                     type="datetime-local"
                                     required
                                     defaultValue={dataJustifyWorkTime.point_at}
-                                    onChange={(e) => handleChange(e)}
+                                    onChange={(e) => setPointAt(e)}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Informe data e hora
@@ -375,7 +374,7 @@ const MainWorkTime = () => {
                                     rows={3}
                                     required
                                     defaultValue={dataJustifyWorkTime.description}
-                                    onChange={(e) => handleChange(e)}
+                                    onChange={(e) => setDescription(e)}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Informe uma descrição para esta justificativa
@@ -394,17 +393,17 @@ const MainWorkTime = () => {
                         </Form>
                     </Modal>
 
-                    <ToastContainer position="top-end" className="p-3">
-                        <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
-                        <Toast.Header>
-                            <strong className="me-auto">Laboravi</strong>
-                            <small className="text-muted">1 segundo atrás</small>
-                        </Toast.Header>
-                        <Toast.Body>{ messageToast }</Toast.Body>
-                        </Toast>
-                    </ToastContainer>
                 </div>
             </main>
+            <ToastContainer position="top-end" className="p-3">
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+                <Toast.Header>
+                    <strong className="me-auto">Laboravi</strong>
+                    <small className="text-muted">1 segundo atrás</small>
+                </Toast.Header>
+                <Toast.Body>{ messageToast }</Toast.Body>
+                </Toast>
+            </ToastContainer>
         </div>
     </>
   );

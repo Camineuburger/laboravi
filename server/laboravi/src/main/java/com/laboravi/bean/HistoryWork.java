@@ -1,6 +1,6 @@
 package com.laboravi.bean;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +14,8 @@ public class HistoryWork {
 	@Id
 	@GeneratedValue
 	private int id;
-	private Date point_at;
-	private Date peding_point_at;
+	private LocalDateTime point_at;
+	private LocalDateTime peding_point_at;
 	@ManyToOne
 	private User user;
 	private String description;
@@ -30,11 +30,11 @@ public class HistoryWork {
 		this.id = id;
 	}
 
-	public Date getPoint_at() {
+	public LocalDateTime getPoint_at() {
 		return point_at;
 	}
 
-	public void setPoint_at(Date point_at) {
+	public void setPoint_at(LocalDateTime point_at) {
 		this.point_at = point_at;
 	}
 
@@ -62,11 +62,11 @@ public class HistoryWork {
 		this.is_pending = is_pending;
 	}
 
-	public Date getPeding_point_at() {
+	public LocalDateTime getPeding_point_at() {
 		return peding_point_at;
 	}
 
-	public void setPeding_point_at(Date peding_point_at) {
+	public void setPeding_point_at(LocalDateTime peding_point_at) {
 		this.peding_point_at = peding_point_at;
 	}
 
