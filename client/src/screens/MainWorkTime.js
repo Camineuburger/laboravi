@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { Table } from 'react-bootstrap';
+import { Table, Button, Modal, Form, Toast, ToastContainer } from 'react-bootstrap';
+import utils from '../utils';
 import axios from 'axios'
 
 const MainWorkTime = () => {
 
     const [ content, setContent ] = useState('main_work_time');
     const [ listWorkTimes, setListWorkTimes ] = useState([]);
-    const [ dataJustifyWorkTime, setDataJustifyWorkTime ] = useState({});
     const [ hour, setHour ] = useState('');
+    const [showModal, setShowModal ] = useState(false);
+    const [messageToast, setMessageToast] = useState("");
+    const [validated, setValidated] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [ dataJustifyWorkTime, setDataJustifyWorkTime ] = useState({
+        description: '',
+        point_at: '',
+        user_id: '1'
+    });
 
     useEffect(() => {
         getMainWorkTime();
@@ -32,7 +41,7 @@ const MainWorkTime = () => {
     const logWorkTime = () => {
         const data = {
             user_id: "1",
-            description: "Teste de ponto.",
+            description: "uhuh",
         }
 
         axios({
@@ -50,6 +59,68 @@ const MainWorkTime = () => {
         })
 
     }
+
+    const save = () => {
+    
+        let _method = "POST", _url = "http://localhost:8081/historywork/create"
+    
+        if (!utils.isEmptyOrNullOrUndefined(dataJustifyWorkTime.id)) {
+    
+          _method = "PUT";
+          _url = "http://localhost:8081/historywork/update/worklog"
+    
+        }
+    
+        axios({
+          method: _method,
+          url: _url,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+          data: dataJustifyWorkTime
+        }).then((response) => {
+    
+            if (response.data === "success") {
+                setMessageToast("Ponto salvo com sucesso.")
+
+                if (!utils.isEmptyOrNullOrUndefined(dataJustifyWorkTime.id))
+                    setMessageToast("Ponto alterado com sucesso.")
+
+                setShowToast(true)
+                setShowModal(false)
+            } else {
+                setMessageToast("Houve uma falha ao salvar o ponto.")
+
+                if (!utils.isEmptyOrNullOrUndefined(dataJustifyWorkTime.id))
+                    setMessageToast("Houve falha ao alterar o ponto.")
+
+                setShowToast(true)
+            }
+    
+        }).catch((error) => {
+    
+          setMessageToast("Houve uma falha ao salvar o departamento.")
+          setShowToast(true)
+          console.log(error)
+    
+        }).finally(() => {
+    
+            getMainWorkTime();
+    
+        })
+    }
+
+    const handleSubmit = (event) => {
+
+        const form = event.currentTarget;
+    
+        event.preventDefault();
+    
+        form.checkValidity() === false ? event.stopPropagation() : save()
+        
+        setValidated(true);
+    
+    };
 
     const getMainWorkTime = () => {
         axios({
@@ -81,27 +152,27 @@ const MainWorkTime = () => {
         return list;
     }
 
-    // const handleChange = (e, input) => {
-    //     console.log(e.target.value);
-    //     console.log(input);
-    // }
+    const handleChange = (e) => {
+        console.log(e.target.value);
+    }
 
-    const justifyWorkingTime = () => {
-        const data = {
-            user_id: "1",
-            description: "Teste de ponto.",
-        }
+    const handleShowModal = (id) => {
+        getWorkTime(id);
+    }
 
+    const getWorkTime = (id) => {
         axios({
-            method: "POST",
-            url: "http://localhost:8081/historywork/update",
+            method: "GET",
+            url: `http://localhost:8081/historywork?id=${id}`,
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },
-            data: data
         }).then((response) => {
-            if (response.data == "success")
-                getMainWorkTime();
+            if (response.data) {
+                // let list = formatHour(response.data);
+                setDataJustifyWorkTime(response.data);
+                setShowModal(true);
+            }
         }).catch((error) => {
             console.log(error);
         })
@@ -168,20 +239,6 @@ const MainWorkTime = () => {
                             }}
                         >
                             Histórico de ponto
-                        </button>
-
-                        <button
-                            onClick={() => setContent("justify")}
-                            style={{
-                                borderRadius: '10px',
-                                width: '20%',
-                                height: '40px',
-                                background: 'beige',
-                                border: 'none',
-                                boxShadow: '#0000006e 3px 3px 3px',
-                            }}
-                        >
-                            Justificar
                         </button>
                     </div>
                     
@@ -253,7 +310,16 @@ const MainWorkTime = () => {
 
                     { content === "history_point" &&
                         <>
-                            <div>
+                            <div
+                                style={{
+                                    overflowY: 'auto',
+                                    marginTop: '20px',
+                                    alignSelf: 'center',
+                                    display: 'flex',
+                                    width: '90%',
+                                    height: '85%',
+                                }}      
+                            >
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
@@ -261,16 +327,20 @@ const MainWorkTime = () => {
                                             <th>Horário</th>
                                             <th>Data</th>
                                             <th>Tipo de ponto</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         { listWorkTimes?.map((item, index) => {
                                             return(
                                                 <tr key={index}>
-                                                    <td>{item.id}</td>
+                                                    <td>{index + 1}</td>
                                                     <td>{item.hour}</td>
                                                     <td>{item.date}</td>
                                                     <td>{item.description}</td>
+                                                    <td align='center'>
+                                                        <Button onClick={() => handleShowModal(item.id)}>Justificar ponto</Button>
+                                                    </td>
                                                 </tr>
                                             )
                                         })}
@@ -280,72 +350,59 @@ const MainWorkTime = () => {
                         </>
                     }
 
-                    { content === "justify" &&
-                        <>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    height: '25%',
-                                    alignItems: 'flex-start',
-                                    justifyContent: 'center',
-                                    color: 'white',
-                                    flexDirection: 'column',
-                                    marginLeft: '20px'
-                                }}      
-                            >
-                                <span>
-                                   Justifique aqui caso houve um problema com o seu ponto
-                                </span>
-                                {/* TODO: <>Imagem com info e nesse info colocar o que podem ser os problemas</> */}
-                            </div>
+                    <Modal show={showModal} onHide={() => setShowModal(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Justificar ponto</Modal.Title>
+                        </Modal.Header>
 
-                            <div
-                                style={{
-                                    alignItems: 'center',
-                                    display: 'flex',
-                                    justifyContent: 'flex-start',
-                                }}      
-                            >
-                                <label>Data e hora</label>
-                                <input type={'datetime-local'} onChange={(e) => handleChange(e, "point_at")}/>
-                            </div>
+                        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                            <Modal.Body>
+                                <Form.Label className='mb-0'>Data e hora *</Form.Label>
+                                <Form.Control
+                                    size="sm"
+                                    type="datetime-local"
+                                    required
+                                    defaultValue={dataJustifyWorkTime.point_at}
+                                    onChange={(e) => handleChange(e)}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe data e hora
+                                </Form.Control.Feedback>
 
-                            <div
-                                style={{
-                                    alignItems: 'center',
-                                    display: 'flex',
-                                    justifyContent: 'flex-start',
-                                }}      
-                            >
-                                <label>Justificativa</label>
-                                <textarea onChange={(e) => handleChange(e, "description")}/>
-                            </div>
+                                <Form.Label className='mt-2 mb-0'>Descrição *</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    required
+                                    defaultValue={dataJustifyWorkTime.description}
+                                    onChange={(e) => handleChange(e)}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe uma descrição para esta justificativa
+                                </Form.Control.Feedback>
 
-                            <div
-                                style={{
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: '25%',
-                                    display: 'flex',
-                                    width: '100%',
-                                }}
-                            >
-                                <button
-                                    // onClick={justifyWorkingTime}
-                                    style={{
-                                        borderRadius: '10px',
-                                        width: '200px',
-                                        height: '40px',
-                                        background: 'beige',
-                                        border: 'none',
-                                        boxShadow: '#0000006e 3px 3px 3px',
-                                    }}                            
-                                >
-                                    Justificar
-                                </button>
-                            </div>
-                        </>
-                    }
+                            </Modal.Body>
+
+                            <Modal.Footer>
+                                <Button variant="secondary" type="reset" onClick={() => setShowModal(false)}>
+                                    Cancelar
+                                </Button>
+                                <Button variant="primary" type='submit'>
+                                    Salvar
+                                </Button>
+                            </Modal.Footer>
+                        </Form>
+                    </Modal>
+
+                    <ToastContainer position="top-end" className="p-3">
+                        <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+                        <Toast.Header>
+                            <strong className="me-auto">Laboravi</strong>
+                            <small className="text-muted">1 segundo atrás</small>
+                        </Toast.Header>
+                        <Toast.Body>{ messageToast }</Toast.Body>
+                        </Toast>
+                    </ToastContainer>
                 </div>
             </main>
         </div>
