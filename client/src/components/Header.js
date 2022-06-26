@@ -35,11 +35,24 @@ const Header = ( ) => {
                                 }}
                             >
                                 <Nav className={"justify-content-end flex-grow-1"}>
+                                    <Link to="/worktime" className={'menu-option'}>Pontos</Link>
+                                    <hr />
                                     <Link to="/department" className={'menu-option'}>Departamentos</Link>
                                     <Link to="/employee" className={'menu-option'}>Funcionários</Link>
-                                    <Link to="/worktime" className={'menu-option'}>Pontos</Link>
                                     <Link to="/role" className={'menu-option'}>Cargos</Link>
-                                    <Link to="" className={'menu-option'}>Sair</Link>
+                                    <br />
+                                    <Link
+                                        to="/"
+                                        className={'menu-option button'}
+                                        style={{
+                                            marginLeft: '36px',
+                                            width: '110px',
+                                            alignItems: 'center',
+                                            alignSelf: 'flex-start',
+                                        }}
+                                    >
+                                        Sair
+                                    </Link>
                                 </Nav>
                             </Offcanvas.Body>
                         </Navbar.Offcanvas>
