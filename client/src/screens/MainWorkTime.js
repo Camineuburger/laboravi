@@ -308,30 +308,56 @@ const MainWorkTime = () => {
                                 </button>
                             </div>
 
-                            <Table striped bordered hover>
-                                <thead>
-                                    <tr>
-                                        <th>Horário</th>
-                                        <th>Data</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    { listWorkTimesToday?.map((item, index) => {
-                                        return(
-                                            <tr key={index}>
-                                                <td>{item.hour}</td>
-                                                <td>{item.date}</td>
+                            <div
+                                style={{
+                                    width: '50%',
+                                    height: '20%',
+                                    marginBottom: '40px',
+                                    alignSelf: 'center',
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        fontFamily: 'monospace',
+                                        fontWeight: '900',
+                                        textDecoration: 'underline',
+                                    }}
+                                >
+                                    Meus pontos do dia:
+                                </span>
+
+                                <div
+                                    style={{
+                                        overflowY: 'auto',
+                                        height: '100%',
+                                    }}  
+                                >
+                                    <Table striped bordered hover>
+                                        <thead>
+                                            <tr>
+                                                <th>Horário</th>
+                                                <th>Data</th>
                                             </tr>
-                                        )
-                                    })}
-                                </tbody>
-                            </Table>
+                                        </thead>
+                                        <tbody>
+                                            { listWorkTimesToday?.map((item, index) => {
+                                                return(
+                                                    <tr key={index}>
+                                                        <td>{item.hour}</td>
+                                                        <td>{item.date}</td>
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
 
 
                             <div
                                 style={{
                                     display: 'flex',
-                                    height: '18%',
+                                    height: '12%',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     color: 'white',
