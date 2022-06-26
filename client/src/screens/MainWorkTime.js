@@ -214,7 +214,7 @@ const MainWorkTime = () => {
             }}
         >
             <Header user={user} />
-            {user.department}
+
             <main
                 style={{
                     height: '100%'

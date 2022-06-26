@@ -97,7 +97,7 @@ const LoginPage = () => {
 
               <div className='text-center'>
 
-                <Button variant="primary" type='submit' className='mt-3'>
+                <Button variant="dark" type='submit' className='mt-3'>
                   Entrar
                 </Button>
               
