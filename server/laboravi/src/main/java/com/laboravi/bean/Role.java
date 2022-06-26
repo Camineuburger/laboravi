@@ -16,7 +16,7 @@ public class Role {
 	private String name;
 	private String description;
 	@ManyToMany
-	private List<Permission> permission;
+	private List<Permission> list_permission;
 
 	public int getId() {
 		return id;
@@ -26,12 +26,12 @@ public class Role {
 		this.id = id;
 	}
 
-	public List<Permission> getPermission() {
-		return permission;
+	public List<Permission> getListPermission() {
+		return list_permission;
 	}
 
-	public void setPermission(List<Permission> permission) {
-		this.permission = permission;
+	public void setListPermission(List<Permission> list_permission) {
+		this.list_permission = list_permission;
 	}
 
 	public String getName() {

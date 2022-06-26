@@ -86,6 +86,15 @@ const utils = {
       time.second = "0" + String(time.second)
 
     return time.hour + ":" + time.minute + ":" + time.second
+  },
+
+
+  listHasObject: (list, obj) => {
+
+    if (list.find((e) => { return e.id === obj.id}) === undefined)
+      return false
+    
+    return true
   }
 
 }

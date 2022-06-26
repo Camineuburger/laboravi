@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laboravi.bean.Permission;
 import com.laboravi.bean.Role;
 import com.laboravi.repository.PermissionRepository;
@@ -32,7 +34,6 @@ public class RoleController {
 	@Autowired
 	PermissionRepository permissionRepository;
 
-	@SuppressWarnings({ "unchecked" })
 	@PostMapping(path = "/create")
 	public @ResponseBody String create(@RequestBody Map<String, Object> data) {
 
@@ -40,8 +41,14 @@ public class RoleController {
 
 		role.setDescription(data.get("description").toString());
 		role.setName(data.get("name").toString());
-		role.setPermission((List<Permission>) data.get("list_permission"));
 		
+		ObjectMapper mapper = new ObjectMapper();
+		List<Permission> list = mapper.convertValue(
+				(List<?>) data.get("listPermission"), 
+			    new TypeReference<List<Permission>>(){}
+			);
+		
+		role.setListPermission(list);		
 		try {
 			roleRepository.save(role);
 		} catch (Exception e) {
@@ -52,7 +59,6 @@ public class RoleController {
 		return "success";
 	}
 
-	@SuppressWarnings({ "unchecked" })
 	@PutMapping(path = "/update")
 	public @ResponseBody String update(@RequestBody Map<String, Object> data) {
 
@@ -60,8 +66,15 @@ public class RoleController {
 
 		role.setDescription(data.get("description").toString());
 		role.setName(data.get("name").toString());
-		role.setPermission((List<Permission>) data.get("list_permission"));
-
+		
+		ObjectMapper mapper = new ObjectMapper();
+		List<Permission> list = mapper.convertValue(
+				(List<?>) data.get("listPermission"), 
+			    new TypeReference<List<Permission>>(){}
+			);
+		
+		role.setListPermission(list);
+		
 		try {
 			roleRepository.save(role);
 		} catch (Exception e) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import axios from 'axios'
-import { Table, Button, Modal, Form, ToastContainer, Toast } from 'react-bootstrap';
+import { Table, Button, Modal, Form, ToastContainer, Toast, Col, Row } from 'react-bootstrap';
 import utils from '../utils';
 
 const Role = () => {
@@ -11,14 +11,17 @@ const Role = () => {
   const [showToast, setShowToast] = useState(false);
   const [validated, setValidated] = useState(false);
   const [listRole, setListRole] = useState([]);
+  const [listPermission, setListPermisson] = useState([]);
   const [role, setRole] = useState({
     id: null,
     name: "",
     description: "",
+    listPermission: []
   });
   
   useEffect(() => {
     getListRole()
+    getListPermission()
   }, [])
 
   const handleCloseModal = () => { 
@@ -28,6 +31,7 @@ const Role = () => {
     role.id = null
     role.name = ""
     role.description = ""
+    role.listPermission = []
     setRole(role)
   };
 
@@ -41,6 +45,29 @@ const Role = () => {
   const setDescription = (e) => {
 
     role.description = e.target.value
+    setRole(role)
+
+  }
+
+  const setPermission = (permission) => {
+
+    if (utils.listHasObject(role.listPermission, permission)) {
+
+      let list_permission = [];
+      role.listPermission.forEach((element) => {
+
+        if (element.code !== permission.code)
+          list_permission.push(element)
+        
+      });
+
+      role.listPermission = list_permission
+
+    } else  {
+
+      role.listPermission = [...role.listPermission, permission]
+      
+    }
     setRole(role)
 
   }
@@ -100,6 +127,23 @@ const Role = () => {
 
       if (response.data)
         setListRole(response.data)
+
+    }).catch((error) => {
+
+      console.log(error)
+
+    })
+  }
+
+  const getListPermission = () => {
+
+    axios({
+      method: "GET",
+      url: "http://localhost:8081/role/permissions",
+    }).then((response) => {
+
+      if (response.data)
+        setListPermisson(response.data)
 
     }).catch((error) => {
 
@@ -208,6 +252,7 @@ const Role = () => {
               </tr>
             </thead>
             <tbody>
+
               {
                 listRole.length === 0 ? 
 
@@ -259,6 +304,61 @@ const Role = () => {
             <Form.Control.Feedback type="invalid">
               Insira uma descrição para este cargo.
             </Form.Control.Feedback>
+
+            <Form.Label className='mt-2 mb-0'>Permissões</Form.Label>
+            <Col className='px-1'>
+              <b>Departamento</b>
+              <Row>
+              {
+                listPermission?.map((item, index) => {
+                  
+                  return ( item.menu === "Departamento" && 
+
+                      <Col key={index + item.code}  className='px-3' sm={4}>
+                        <Form.Check key={index + item.code} size="sm" type="checkbox" defaultChecked={utils.listHasObject(role.listPermission, item)} label={item.name} onChange={() => {setPermission(item)}}/>
+                      </Col>
+
+                  )
+                })
+              }
+              </Row>
+            </Col>
+
+            <Col className='px-1 mt-2'>
+              <b>Cargo</b>
+              <Row>
+              {
+                listPermission?.map((item, index) => {
+                  
+                  return ( item.menu === "Cargo" && 
+
+                      <Col key={index + item.code}  className='px-3' sm={4}>
+                        <Form.Check key={index + item.code} size="sm" type="checkbox" defaultChecked={utils.listHasObject(role.listPermission, item)} label={item.name} onChange={() => {setPermission(item)}}/>
+                      </Col>
+
+                  )
+                })
+              }
+              </Row>
+            </Col>
+
+            <Col className='px-1 mt-2'>
+              <b>Funcionário</b>
+              <Row>
+              {
+                listPermission?.map((item, index) => {
+                  
+                  return ( item.menu === "Funcionário" && 
+
+                      <Col key={index + item.code}  className='px-3' sm={4}>
+                        <Form.Check key={index + item} size="sm" type="checkbox" defaultChecked={utils.listHasObject(role.listPermission, item)} label={item.name} onChange={() => {setPermission(item)}}/>
+                      </Col>
+
+                  )
+                })
+              }
+              </Row>
+            </Col>
 
           </Modal.Body>
 
