@@ -11,14 +11,14 @@ const LoginPage = () => {
   const [messageToast, setMessageToast] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [user, setUser] = useState({
-    name: "",
+    login: "",
     password: ""
   })
 
 
-  const setName = (e) => {
+  const setLogin = (e) => {
 
-    user.name = e.target.value
+    user.login = e.target.value
     setUser(user)
   }
 
@@ -42,6 +42,7 @@ const LoginPage = () => {
 
       if (!utils.isEmptyOrNullOrUndefined(response.data)) {
 
+        localStorage.setItem("user", JSON.stringify(user))
         navigate("/worktime")
 
       } else {
@@ -82,10 +83,10 @@ const LoginPage = () => {
 
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
 
-                <Form.Label className='mb-0' >Nome*</Form.Label>
-                <Form.Control size="sm" type="text" required defaultValue={user.name} onChange={(e) => setName(e) }/>
+                <Form.Label className='mb-0' >Login*</Form.Label>
+                <Form.Control size="sm" type="text" required defaultValue={user.login} onChange={(e) => setLogin(e) }/>
                 <Form.Control.Feedback type="invalid">
-                  Insira seu nome.
+                  Insira seu login.
                 </Form.Control.Feedback>
 
                 <Form.Label className='mb-0' >Senha*</Form.Label>

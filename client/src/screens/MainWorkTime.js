@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import Header from '../components/Header';
 import { Table, Button, Modal, Form, Toast, ToastContainer } from 'react-bootstrap';
 import utils from '../utils';
 import axios from 'axios'
+import { useLocation } from "react-router-dom";
+
 
 const MainWorkTime = () => {
-
+    const [ user, setUser] = useState({})
     const [ content, setContent ] = useState('main_work_time');
     const [ listWorkTimes, setListWorkTimes ] = useState([]);
     const [ listWorkTimesToday, setListWorkTimesToday ] = useState([]);
@@ -21,10 +23,14 @@ const MainWorkTime = () => {
         user_id: '1'
     });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getMainWorkTime();
         getListWorkTimeToday()
+        setUser(JSON.parse(localStorage.getItem("user")))
+        console.log(localStorage);
     }, [])
+
+    // console.log(user);
 
     const getNow = () => {
         let event = new Date();
@@ -203,7 +209,7 @@ const MainWorkTime = () => {
                 height: '100%'
             }}
         >
-            <Header />
+            <Header user={user} />
 
             <main
                 style={{
@@ -269,7 +275,7 @@ const MainWorkTime = () => {
                                         fontSize: '28pt',
                                     }}
                                 >
-                                    Eduardo Krutzsch!
+                                    {user.name}
                                 </span>
                             </div>
 

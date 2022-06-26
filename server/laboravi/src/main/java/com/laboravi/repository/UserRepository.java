@@ -11,7 +11,7 @@ import com.laboravi.bean.User;
 public interface UserRepository extends CrudRepository<User, Integer> {
 
 	@Query(value = "SELECT * FROM laboravi.user AS u"
-			+ " WHERE u.name = :name  AND u.password = :password", nativeQuery = true)
-	User authenticate(@Param("name") String name, @Param("password") String password);
+			+ " WHERE u.login = :login  AND u.password = :password", nativeQuery = true)
+	User authenticate(@Param("login") String login, @Param("password") String password);
 
 }
