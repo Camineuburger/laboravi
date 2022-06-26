@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import Header from '../components/Header';
 import { Table, Button, Modal, Form, Toast, ToastContainer } from 'react-bootstrap';
 import utils from '../utils';
 import axios from 'axios'
-import { useLocation } from "react-router-dom";
-
 
 const MainWorkTime = () => {
     const [ user, setUser] = useState({})
@@ -16,7 +14,6 @@ const MainWorkTime = () => {
     const [ messageToast, setMessageToast ] = useState("");
     const [ validated, setValidated ] = useState(false);
     const [ showToast, setShowToast ] = useState(false);
-    const [ time, setTime] = useState(0)
     const [ dataJustifyWorkTime, setDataJustifyWorkTime ] = useState({
         id: null,
         description: '',
@@ -28,7 +25,6 @@ const MainWorkTime = () => {
         getMainWorkTime();
         getListWorkTimeToday()
         setUser(JSON.parse(localStorage.getItem("user")))
-        console.log(localStorage);
     }, [])
 
     const getNow = () => {
@@ -40,11 +36,6 @@ const MainWorkTime = () => {
         });
         
         return setHour(now);
-    }
-
-
-    const countFinishWorkTime = () => {
-        
     }
 
     setTimeout(() => {
@@ -214,7 +205,6 @@ const MainWorkTime = () => {
             }}
         >
             <Header user={user} />
-
             <main
                 style={{
                     height: '100%'
@@ -313,6 +303,7 @@ const MainWorkTime = () => {
                                         width: '200px',
                                         height: '75px',
                                     }}
+                                    disabled={listWorkTimesToday.length >= 4}
                                 >
                                     Registrar ponto
                                 </button>
