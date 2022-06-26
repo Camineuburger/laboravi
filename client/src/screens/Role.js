@@ -24,6 +24,11 @@ const Role = () => {
   const handleCloseModal = () => { 
     setShowModal(false)
     setValidated(false)
+
+    role.id = null
+    role.name = ""
+    role.description = ""
+    setRole(role)
   };
 
   const setName = (e) => {

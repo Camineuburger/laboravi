@@ -16,6 +16,7 @@ const Employee = () => {
   const [employee, setEmployee] = useState({
     id: null,
     name: "",
+    login: "",
     password: "",
     department: {},
     role: {},
@@ -35,6 +36,7 @@ const Employee = () => {
     
     employee.id = null
     employee.name = ""
+    employee.login = ""
     employee.department = {}
     employee.role = {}
     employee.department_id = null
@@ -42,6 +44,13 @@ const Employee = () => {
 
     setEmployee(employee)
   };
+
+  const setLogin = (e) => {
+
+    employee.login = e.target.value
+    setEmployee(employee)
+
+  }
 
   const setName = (e) => {
 
@@ -316,6 +325,12 @@ const Employee = () => {
 
             <Form.Label className='mb-0' >Nome*</Form.Label>
             <Form.Control size="sm" type="text" required defaultValue={employee.name} onChange={(e) => setName(e) }/>
+            <Form.Control.Feedback type="invalid">
+              Insira um nome para este funcionário.
+            </Form.Control.Feedback>
+            
+            <Form.Label className='mt-3 mb-0' >Login*</Form.Label>
+            <Form.Control size="sm" type="text" required defaultValue={employee.login} onChange={(e) => setLogin(e) }/>
             <Form.Control.Feedback type="invalid">
               Insira um nome para este funcionário.
             </Form.Control.Feedback>
