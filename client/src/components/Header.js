@@ -37,7 +37,7 @@ const Header = ( ) => {
                                     <Link to="/department">Departamentos</Link>
                                     <Link to="/department">Funcionários</Link>
                                     <Link to="/worktime">Pontos</Link>
-                                    <Link to="/department">Cargos</Link>
+                                    <Link to="/role">Cargos</Link>
 
 
                                     <NavDropdown

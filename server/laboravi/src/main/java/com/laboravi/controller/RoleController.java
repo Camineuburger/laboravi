@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,7 +34,7 @@ public class RoleController {
 
 	@SuppressWarnings({ "unchecked" })
 	@PostMapping(path = "/create")
-	public @ResponseBody String create(@RequestParam Map<String, Object> data) {
+	public @ResponseBody String create(@RequestBody Map<String, Object> data) {
 
 		Role role = new Role();
 
@@ -51,8 +53,8 @@ public class RoleController {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	@PostMapping(path = "/update")
-	public @ResponseBody String update(@RequestParam Map<String, Object> data) {
+	@PutMapping(path = "/update")
+	public @ResponseBody String update(@RequestBody Map<String, Object> data) {
 
 		Role role = roleRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 
