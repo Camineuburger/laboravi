@@ -35,6 +35,12 @@ const Department = () => {
   const handleCloseModal = () => { 
     setShowModal(false)
     setValidated(false)
+
+    department.id = null
+    department.name = ""
+    department.description = ""
+    department.time_work = 0
+    setDepartment(department)
   };
 
   const setName = (e) => {

@@ -1,6 +1,7 @@
 package com.laboravi.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,15 +35,18 @@ public class HistoryWorkController {
 
 	@PostMapping(path = "/create")
 	public @ResponseBody String create(@RequestBody Map<String, Object> data) {
-
+		
 		System.out.println(data);
+
 		
 		User user = userRepository.findById(Integer.parseInt(data.get("user_id").toString())).get();
+		LocalDateTime localDateTime = LocalDateTime.now();
+		
 		HistoryWork historyWork = new HistoryWork();
 
 		historyWork.setDescription(data.get("description").toString());
 		historyWork.setUser(user);
-		historyWork.setPoint_at(new Date());
+		historyWork.setPoint_at(localDateTime);
 
 		try {
 			historyWorkRepository.save(historyWork);
@@ -52,15 +57,16 @@ public class HistoryWorkController {
 		return "success";
 	}
 
-	@SuppressWarnings("deprecation")
-	@PostMapping(path = "/update/worklog")
+	@PutMapping(path = "/update/worklog")
 	public @ResponseBody String updateWorkLog(@RequestBody Map<String, Object> data) {
-
+		
+		LocalDateTime localDateTime = LocalDateTime.parse(data.get("point_at").toString(), DateTimeFormatter.ISO_DATE_TIME);
+		
 		HistoryWork historyWork = historyWorkRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 
 		historyWork.setDescription(data.get("description").toString());
 		historyWork.setIs_pending(true);
-		historyWork.setPeding_point_at(new Date(data.get("point_at").toString()));
+		historyWork.setPoint_at(localDateTime);
 
 		try {
 			historyWorkRepository.save(historyWork);
@@ -71,14 +77,12 @@ public class HistoryWorkController {
 		return "success";
 	}
 
-	@SuppressWarnings("deprecation")
-	@PostMapping(path = "/update/pending")
+	@PutMapping(path = "/update/pending")
 	public @ResponseBody String updatePending(@RequestBody Map<String, Object> data) {
 
 		HistoryWork historyWork = historyWorkRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 
 		historyWork.setDescription(data.get("description").toString());
-		historyWork.setPoint_at(new Date(data.get("date").toString()));
 
 		try {
 			historyWorkRepository.save(historyWork);
