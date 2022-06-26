@@ -355,32 +355,6 @@ const MainWorkTime = () => {
                             </div>
 
 
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    height: '12%',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    color: 'white',
-                                    fontWeight: '900',
-                                    flexDirection: 'column',
-                                    background: '#202425',
-                                    fontFamily: 'monospace',
-                                    borderBottom: '5px solid deepskyblue',
-                                    borderTop: '5px solid deeppink',
-                                }}
-                            >
-                                <span>
-                                    Seu horário de saída contando 1 hora de intervalo será: 
-                                    <u style={{
-                                        background: 'yellow',
-                                        color: 'black',
-                                        marginLeft: '5px'
-                                    }}>
-                                        17:45
-                                    </u>
-                                </span>
-                            </div>
                         </>
                     }
 
