@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +27,7 @@ public class DepartmentController {
 	DepartmentRepository departmentRepository;
 
 	@PostMapping(path = "/create")
-	public @ResponseBody String create(@RequestParam Map<String, Object> data) {
+	public @ResponseBody String create(@RequestBody Map<String, Object> data) {
 
 		Department department = new Department();
 
@@ -34,7 +36,7 @@ public class DepartmentController {
 		department.setTime_work(Integer.parseInt(data.get("time_work").toString()));
 
 		try {
-
+			departmentRepository.save(department);
 		} catch (Exception e) {
 			return e.getMessage();
 		}
@@ -43,8 +45,8 @@ public class DepartmentController {
 
 	}
 
-	@PostMapping(path = "/update")
-	public @ResponseBody String update(@RequestParam Map<String, Object> data) {
+	@PutMapping(path = "/update")
+	public @ResponseBody String update(@RequestBody Map<String, Object> data) {
 
 		Department department = departmentRepository.findById(Integer.parseInt(data.get("id").toString())).get();
 
@@ -53,7 +55,7 @@ public class DepartmentController {
 		department.setTime_work(Integer.parseInt(data.get("time_work").toString()));
 
 		try {
-
+			departmentRepository.save(department);
 		} catch (Exception e) {
 			return e.getMessage();
 		}
